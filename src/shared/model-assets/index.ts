@@ -1,0 +1,1 @@
+export { Pickachu } from './pickachu'
