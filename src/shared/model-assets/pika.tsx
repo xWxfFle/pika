@@ -35,8 +35,8 @@ export const Pika = (props: JSX.IntrinsicElements['group']) => {
   const { nodes, materials, animations } = useGLTF('/pikachu.glb') as GLTFResult
   const { actions } = useAnimations(animations, group)
   useEffect(() => {
-    if (actions.Dance) {
-      actions.Dance.play()
+    if (actions.Walking) {
+      actions.Walking.play()
     }
   })
   return (

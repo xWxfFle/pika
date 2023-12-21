@@ -1,15 +1,7 @@
-import {
-  ContactShadows,
-  Environment,
-  GizmoHelper,
-  GizmoViewport,
-  KeyboardControls,
-  Loader,
-  OrbitControls,
-} from '@react-three/drei'
+import { Environment, KeyboardControls, Plane, Sphere } from '@react-three/drei'
 import { Canvas } from '@react-three/fiber'
 import { Physics, RigidBody } from '@react-three/rapier'
-import Ecctrl from 'ecctrl'
+import Ecctrl, { EcctrlJoystick } from 'ecctrl'
 import { Suspense } from 'react'
 import { Pika } from '@/shared/model-assets'
 
@@ -25,23 +17,52 @@ const keyboardMap = [
 export const App = () => {
   return (
     <div className="h-[100dvh]">
-      <Canvas className="w-full h-full" camera={{ position: [0, 0, 2] }}>
+      <EcctrlJoystick />
+      <Canvas
+        className="w-full h-full"
+        // onPointerDown={(e) => {
+        //   if (e.pointerType === 'mouse') {
+        //     e.target.requestPointerLock()
+        //   }
+        // }}
+      >
         <Suspense>
           <ambientLight intensity={0.5} />
+          <directionalLight
+            intensity={0.7}
+            color="#FFFFED"
+            castShadow
+            shadow-bias={-0.0004}
+            position={[-20, 20, 20]}
+            shadow-camera-top={20}
+            shadow-camera-right={20}
+            shadow-camera-bottom={-20}
+            shadow-camera-left={-20}
+          />
           <Physics timeStep="vary" debug>
             <KeyboardControls map={keyboardMap}>
               {/* eslint-disable-next-line @typescript-eslint/ban-ts-comment */}
               {/* @ts-ignore-next-line */}
-              <Ecctrl>
+              <Ecctrl floatHeight={0}>
                 <Pika position={[0, -0.55, 0]} />
               </Ecctrl>
             </KeyboardControls>
             <RigidBody restitution={2} />
-
             <RigidBody type="fixed" colliders="trimesh">
-              <group position={[0, -0.05, 0]}>
-                <ContactShadows blur={2} />
-              </group>
+              <group position={[0, -3, 0]} />
+              <Plane
+                args={[100, 100]}
+                rotation={[-Math.PI / 2, 0, 0]}
+                receiveShadow
+                castShadow
+              >
+                <meshPhongMaterial opacity={0} transparent />
+              </Plane>
+            </RigidBody>
+            <RigidBody colliders="ball" mass={2}>
+              <Sphere position={[3, 0, 3]} args={[0.5]}>
+                <meshStandardMaterial color="hotpink" />
+              </Sphere>
             </RigidBody>
           </Physics>
 
@@ -50,13 +71,8 @@ export const App = () => {
             background
             blur={0.1}
           />
-          <OrbitControls enablePan={false} />
         </Suspense>
-        <GizmoHelper>
-          <GizmoViewport />
-        </GizmoHelper>
       </Canvas>
-      <Loader />
     </div>
   )
 }
