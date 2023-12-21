@@ -1,1 +1,1 @@
-export { Pickachu } from './pickachu'
+export { Pika } from './pika'
