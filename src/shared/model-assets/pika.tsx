@@ -6,9 +6,9 @@ Source: https://sketchfab.com/3d-models/pikachu-37c740f674cd4719a1d1d2970bbe8c30
 Title: Pikachu
 */
 
-import { useAnimations, useGLTF } from '@react-three/drei'
-import { useEffect, useRef } from 'react'
-import * as THREE from 'three'
+import { useGLTF } from '@react-three/drei'
+import { EcctrlAnimation } from 'ecctrl'
+import { useRef } from 'react'
 import { GLTF } from 'three-stdlib'
 
 type GLTFResult = GLTF & {
@@ -30,64 +30,72 @@ type GLTFResult = GLTF & {
 // type ActionName = 'Walking' | 'Dance' | 'Jump' | 'Idle'
 // type GLTFActions = Record<ActionName, THREE.AnimationAction>
 
+const animationSet = {
+  idle: 'Idle',
+  walk: 'Walking',
+  jump: 'Jump',
+  run: 'Walking',
+  jumpIdle: 'Idle',
+  jumpLand: 'Idle',
+  fall: 'Idle',
+}
 export const Pika = (props: JSX.IntrinsicElements['group']) => {
   const group = useRef<THREE.Group>(null)
-  const { nodes, materials, animations } = useGLTF('/pikachu.glb') as GLTFResult
-  const { actions } = useAnimations(animations, group)
-  useEffect(() => {
-    if (actions.Walking) {
-      actions.Walking.play()
-    }
-  })
+  const { nodes, materials } = useGLTF('/pikachu.glb') as GLTFResult
   return (
-    <group ref={group} {...props} dispose={null}>
-      <group name="Sketchfab_Scene">
-        <group
-          name="Sketchfab_model"
-          position={[0.006, -0.018, -0.048]}
-          rotation={[-Math.PI / 2, 0, 0]}
-        >
-          <group name="root">
-            <group name="GLTF_SceneRootNode" rotation={[Math.PI / 2, 0, 0]}>
-              <group
-                name="Pikachu_49"
-                rotation={[Math.PI / 2, 0, 0]}
-                scale={0.025}
-              >
-                <group name="GLTF_created_0">
-                  <primitive object={nodes.GLTF_created_0_rootJoint} />
-                  <skinnedMesh
-                    name="Object_7"
-                    geometry={nodes.Object_7.geometry}
-                    material={materials.Material_160}
-                    skeleton={nodes.Object_7.skeleton}
-                  />
-                  <skinnedMesh
-                    name="Object_8"
-                    geometry={nodes.Object_8.geometry}
-                    material={materials['Material.001']}
-                    skeleton={nodes.Object_8.skeleton}
-                  />
-                  <skinnedMesh
-                    name="Object_9"
-                    geometry={nodes.Object_9.geometry}
-                    material={materials['Material.003']}
-                    skeleton={nodes.Object_9.skeleton}
-                  />
-                  <skinnedMesh
-                    name="Object_10"
-                    geometry={nodes.Object_10.geometry}
-                    material={materials['Material.002']}
-                    skeleton={nodes.Object_10.skeleton}
-                  />
-                  <group name="PikachuM_48" />
+    <EcctrlAnimation
+      characterURL="/pikachu.glb" // Must have property
+      animationSet={animationSet} // Must have property
+    >
+      <group ref={group} {...props} dispose={null}>
+        <group name="Sketchfab_Scene">
+          <group
+            name="Sketchfab_model"
+            position={[0.006, -0.018, -0.048]}
+            rotation={[-Math.PI / 2, 0, 0]}
+          >
+            <group name="root">
+              <group name="GLTF_SceneRootNode" rotation={[Math.PI / 2, 0, 0]}>
+                <group
+                  name="Pikachu_49"
+                  rotation={[Math.PI / 2, 0, 0]}
+                  scale={0.025}
+                >
+                  <group name="GLTF_created_0">
+                    <primitive object={nodes.GLTF_created_0_rootJoint} />
+                    <skinnedMesh
+                      name="Object_7"
+                      geometry={nodes.Object_7.geometry}
+                      material={materials.Material_160}
+                      skeleton={nodes.Object_7.skeleton}
+                    />
+                    <skinnedMesh
+                      name="Object_8"
+                      geometry={nodes.Object_8.geometry}
+                      material={materials['Material.001']}
+                      skeleton={nodes.Object_8.skeleton}
+                    />
+                    <skinnedMesh
+                      name="Object_9"
+                      geometry={nodes.Object_9.geometry}
+                      material={materials['Material.003']}
+                      skeleton={nodes.Object_9.skeleton}
+                    />
+                    <skinnedMesh
+                      name="Object_10"
+                      geometry={nodes.Object_10.geometry}
+                      material={materials['Material.002']}
+                      skeleton={nodes.Object_10.skeleton}
+                    />
+                    <group name="PikachuM_48" />
+                  </group>
                 </group>
               </group>
             </group>
           </group>
         </group>
       </group>
-    </group>
+    </EcctrlAnimation>
   )
 }
 

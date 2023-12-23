@@ -7,6 +7,7 @@ module.exports = configure({
   extend: {
     rules: {
       'react/no-unknown-property': 'off',
+      'strictNullChecks': true,
     },
   },
 

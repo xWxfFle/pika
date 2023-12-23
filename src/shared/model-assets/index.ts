@@ -1,1 +1,0 @@
-export { Pika } from './pika'
