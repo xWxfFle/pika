@@ -7,7 +7,8 @@ module.exports = configure({
   extend: {
     rules: {
       'react/no-unknown-property': 'off',
-      'strictNullChecks': true,
+      'strictNullChecks': 'off',
+      '@typescript-eslint/no-unnecessary-condition': 'off',
     },
   },
 

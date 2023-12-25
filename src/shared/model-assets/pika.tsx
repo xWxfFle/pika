@@ -38,6 +38,7 @@ const animationSet = {
   jumpIdle: 'Idle',
   jumpLand: 'Idle',
   fall: 'Idle',
+  action1: 'Dance',
 }
 export const Pika = (props: JSX.IntrinsicElements['group']) => {
   const group = useRef<THREE.Group>(null)

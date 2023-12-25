@@ -4,9 +4,9 @@ import { Physics } from '@react-three/rapier'
 import Ecctrl, { EcctrlJoystick } from 'ecctrl'
 import { Suspense } from 'react'
 import { Ball } from '@/shared/model-assets/ball'
-import { Stones } from '@/shared/model-assets/stones'
-import { Pika } from '@/shared/model-assets/pika'
 import { Grass } from '@/shared/model-assets/grass'
+import { Pika } from '@/shared/model-assets/pika'
+import { Stones } from '@/shared/model-assets/stones'
 
 const keyboardMap = [
   { name: 'forward', keys: ['ArrowUp', 'KeyW'] },
@@ -15,6 +15,7 @@ const keyboardMap = [
   { name: 'rightward', keys: ['ArrowRight', 'KeyD'] },
   { name: 'jump', keys: ['Space'] },
   { name: 'run', keys: ['Shift'] },
+  { name: 'action1', keys: ['KeyE'] },
 ]
 
 export const App = () => {
