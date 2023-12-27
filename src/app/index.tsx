@@ -2,7 +2,7 @@ import { Environment, KeyboardControls } from '@react-three/drei'
 import { Canvas } from '@react-three/fiber'
 import { Physics } from '@react-three/rapier'
 import Ecctrl, { EcctrlJoystick } from 'ecctrl'
-import { Suspense } from 'react'
+import { Suspense, useState } from 'react'
 import { Ball } from '@/shared/model-assets/ball'
 import { Grass } from '@/shared/model-assets/grass'
 import { Pika } from '@/shared/model-assets/pika'
@@ -17,22 +17,27 @@ const keyboardMap = [
   { name: 'run', keys: ['Shift'] },
   { name: 'action1', keys: ['KeyE'] },
 ]
-
 export const App = () => {
+  const [paused, setPaused] = useState(true)
   return (
     <div className="h-[100dvh]">
       <EcctrlJoystick />
-      <Canvas className="w-full h-full">
+      <Canvas
+        className="w-full h-full"
+        gl={{ antialias: false }}
+        onClick={() => setPaused(false)}
+      >
         <Suspense>
           <ambientLight intensity={0.5} />
-          <Physics timeStep="vary">
+          <Physics timeStep="vary" paused={paused}>
             <KeyboardControls map={keyboardMap}>
               {/* eslint-disable-next-line @typescript-eslint/ban-ts-comment */}
               {/* @ts-ignore-next-line */}
-              <Ecctrl floatHeight={0} animated>
-                <Pika position={[0, -0.55, 0]} />
+              <Ecctrl floatHeight={0} animated position={[0, 0.64, 0]}>
+                <Pika />
               </Ecctrl>
             </KeyboardControls>
+
             <Grass />
             <Stones />
             <Ball />

@@ -49,7 +49,7 @@ export const Pika = (props: JSX.IntrinsicElements['group']) => {
       animationSet={animationSet} // Must have property
     >
       <group ref={group} {...props} dispose={null}>
-        <group name="Sketchfab_Scene">
+        <group name="Sketchfab_Scene" position={[0, -0.55, 0]}>
           <group
             name="Sketchfab_model"
             position={[0.006, -0.018, -0.048]}
