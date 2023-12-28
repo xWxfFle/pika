@@ -1,4 +1,4 @@
-import { Environment, KeyboardControls } from '@react-three/drei'
+import { Environment, KeyboardControls, Text } from '@react-three/drei'
 import { Canvas } from '@react-three/fiber'
 import { Physics } from '@react-three/rapier'
 import Ecctrl, { EcctrlJoystick } from 'ecctrl'
@@ -29,6 +29,16 @@ export const App = () => {
       >
         <Suspense>
           <ambientLight intensity={0.5} />
+          {paused && (
+            <Text
+              color="#2f2f2f"
+              scale={0.3}
+              position={[0, 1.5, 0]}
+              rotation={[0, Math.PI, 0]}
+            >
+              Click me to start
+            </Text>
+          )}
           <Physics timeStep="vary" paused={paused}>
             <KeyboardControls map={keyboardMap}>
               {/* eslint-disable-next-line @typescript-eslint/ban-ts-comment */}
