@@ -29,15 +29,22 @@ export const Farm = (props: JSX.IntrinsicElements['group']) => {
   const { nodes, materials } = useGLTF('/farm.gltf') as GLTFResult
   return (
     <RigidBody type="fixed" colliders="trimesh">
-      <group {...props} dispose={null} scale={6} position={[-10, 0, 5]}>
+      <group
+        {...props}
+        dispose={null}
+        scale={6}
+        position={[10, 0, -7]}
+        rotation={[0, Math.PI, 0]}
+      >
         <mesh
           castShadow
           receiveShadow
           geometry={nodes.Circle.geometry}
-          material={materials.default}
           position={[0.472, 0, -0.607]}
           scale={3.761}
-        />
+        >
+          <meshStandardMaterial color="#46A758" />
+        </mesh>
         <mesh
           castShadow
           receiveShadow

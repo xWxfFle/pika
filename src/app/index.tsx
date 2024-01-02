@@ -3,8 +3,10 @@ import { Canvas } from '@react-three/fiber'
 import { Physics } from '@react-three/rapier'
 import Ecctrl, { EcctrlJoystick } from 'ecctrl'
 import { Suspense, useState } from 'react'
+import { Ball } from '@/shared/model-assets/ball'
 import { Farm } from '@/shared/model-assets/farm'
 import { Pika } from '@/shared/model-assets/pika'
+import { Pumpkin } from '@/shared/model-assets/pumpkin'
 
 const keyboardMap = [
   { name: 'forward', keys: ['ArrowUp', 'KeyW'] },
@@ -33,15 +35,16 @@ export const App = () => {
               Click me to start
             </Text>
           )}
-          <Physics timeStep="vary" paused={paused} debug>
+          <Physics timeStep="vary" paused={paused}>
             <KeyboardControls map={keyboardMap}>
               {/* @ts-expect-error waiting fix :( */}
               <Ecctrl floatHeight={0} animated position={[0, 0.64, 0]}>
                 <Pika />
               </Ecctrl>
             </KeyboardControls>
-
             <Farm />
+            <Pumpkin />
+            <Ball />
           </Physics>
           <Environment
             files="/industrial_sunset_02_puresky_1k.hdr"

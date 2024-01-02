@@ -25,8 +25,8 @@ type GLTFResult = GLTF & {
 export const Ball = (props: JSX.IntrinsicElements['group']) => {
   const { nodes, materials } = useGLTF('/ball.gltf') as GLTFResult
   return (
-    <RigidBody mass={0.001} colliders="hull">
-      <group {...props} dispose={null} position={[4, 0.65, 0]} scale={0.5}>
+    <RigidBody mass={0.0001} colliders="hull">
+      <group {...props} dispose={null} position={[4, 0.55, 0]} scale={0.5}>
         <mesh
           castShadow
           receiveShadow
