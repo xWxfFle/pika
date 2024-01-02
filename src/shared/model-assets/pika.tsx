@@ -28,7 +28,6 @@ type GLTFResult = GLTF & {
 }
 
 // type ActionName = 'Walking' | 'Dance' | 'Jump' | 'Idle'
-// type GLTFActions = Record<ActionName, THREE.AnimationAction>
 
 const animationSet = {
   idle: 'Idle',
@@ -44,10 +43,7 @@ export const Pika = (props: JSX.IntrinsicElements['group']) => {
   const group = useRef<THREE.Group>(null)
   const { nodes, materials } = useGLTF('/pikachu.glb') as GLTFResult
   return (
-    <EcctrlAnimation
-      characterURL="/pikachu.glb" // Must have property
-      animationSet={animationSet} // Must have property
-    >
+    <EcctrlAnimation characterURL="/pikachu.glb" animationSet={animationSet}>
       <group ref={group} {...props} dispose={null}>
         <group name="Sketchfab_Scene" position={[0, -0.55, 0]}>
           <group

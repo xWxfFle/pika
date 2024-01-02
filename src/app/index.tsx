@@ -3,10 +3,8 @@ import { Canvas } from '@react-three/fiber'
 import { Physics } from '@react-three/rapier'
 import Ecctrl, { EcctrlJoystick } from 'ecctrl'
 import { Suspense, useState } from 'react'
-import { Ball } from '@/shared/model-assets/ball'
-import { Grass } from '@/shared/model-assets/grass'
+import { Farm } from '@/shared/model-assets/farm'
 import { Pika } from '@/shared/model-assets/pika'
-import { Stones } from '@/shared/model-assets/stones'
 
 const keyboardMap = [
   { name: 'forward', keys: ['ArrowUp', 'KeyW'] },
@@ -22,11 +20,7 @@ export const App = () => {
   return (
     <div className="h-[100dvh]">
       <EcctrlJoystick />
-      <Canvas
-        className="w-full h-full"
-        gl={{ antialias: false }}
-        onClick={() => setPaused(false)}
-      >
+      <Canvas className="w-full h-full" onClick={() => setPaused(false)}>
         <Suspense>
           <ambientLight intensity={0.5} />
           {paused && (
@@ -39,18 +33,15 @@ export const App = () => {
               Click me to start
             </Text>
           )}
-          <Physics timeStep="vary" paused={paused}>
+          <Physics timeStep="vary" paused={paused} debug>
             <KeyboardControls map={keyboardMap}>
-              {/* eslint-disable-next-line @typescript-eslint/ban-ts-comment */}
-              {/* @ts-ignore-next-line */}
+              {/* @ts-expect-error waiting fix :( */}
               <Ecctrl floatHeight={0} animated position={[0, 0.64, 0]}>
                 <Pika />
               </Ecctrl>
             </KeyboardControls>
 
-            <Grass />
-            <Stones />
-            <Ball />
+            <Farm />
           </Physics>
           <Environment
             files="/industrial_sunset_02_puresky_1k.hdr"
